@@ -1,0 +1,41 @@
+/* Global Styles */
+body {
+  padding-top: 56px;
+  background-color: #6B6B6B;
+}
+
+/* Resources Styles */
+#resource-currency-text {
+  color: #E8D73B;
+}
+
+#resource-food-text {
+  color: #7DFF0D;
+}
+
+#resource-health-text {
+  color: #FF0000;
+}
+
+#resources-bar {
+  background-color: #A0AFB8;
+  visibility: hidden;
+}
+
+/* Rules Styles */
+
+#start-div {
+  margin-top: 40px;
+  background-color: #6B7AB8;
+  padding: 10%;
+}
+
+#start-div, p {
+  text-align: center;
+}
+
+/* Hand Styles */
+
+/* Card Styles */
+
+
