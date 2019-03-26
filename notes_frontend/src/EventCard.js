@@ -12,15 +12,7 @@ class EventCard {
       json.forEach((card) => {
         let newCard = new EventCard();
         let createdCard = newCard.createCard(card);
-
-        //append new div to row
-        let row1 = document.getElementById('row-1')
-        let row2 = document.getElementById('row-2')
-        let row3 = document.getElementById('row-3')
-
-        row1.appendChild(createdCard);
-
-
+        assignCardToRow(createdCard);
       })
     })
   }
@@ -48,8 +40,8 @@ class EventCard {
 
     // Event Listeners
     eventCard.addEventListener('click', () => {
-      console.log('clicked')
       cardBody.style.visibility = 'visible';
+      eventCard.classList.add('border-clicked');
     })
 
     acceptButton.addEventListener('click', () => {
@@ -88,5 +80,20 @@ class EventCard {
   }
 
   render() {
+  }
+}
+
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+function assignCardToRow(card) {
+  let rowMaxCards = 3;
+  while(rowMaxCards > 0) {
+    let randomInt = getRandomInt(1, 3);
+    let assignedRow = `row-${randomInt}`;
+    let randomRow = document.getElementById(assignedRow);
+    randomRow.appendChild(card);
+    rowMaxCards--;
   }
 }

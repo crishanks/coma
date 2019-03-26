@@ -13,18 +13,5 @@ function startGame() {
   level.style.visibility = "visible";
   let newEvent = new EventCard();
   newEvent.renderCards();
-  
-  
-
-  // let card1 = EventCard.createCard()
-  // let card2 = new EventCard();
-
-  // let card3 = new EventCard();
-  // let card4 = new EventCard();
-
-  // let card5 = new EventCard();
-
-
-  
 }
 

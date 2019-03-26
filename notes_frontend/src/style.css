@@ -48,3 +48,7 @@ body {
 .card-body {
   visibility: hidden;
 }
+
+.border-clicked {
+  border: 5px solid gold;
+}
