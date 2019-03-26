@@ -34,13 +34,17 @@ body {
   text-align: center;
 }
 
-/* Hand Styles */
-
-/* Card Styles */
+/* Level Styles */
 
 #level {
   margin-top: 40px;
   background-color: #6B7AB8;
   padding: 10%;
+  visibility: hidden;
+}
+
+/* Card Styles */
+
+.card-body {
   visibility: hidden;
 }

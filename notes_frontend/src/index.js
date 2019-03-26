@@ -9,8 +9,22 @@ function startGame() {
   //Show resources nav bar with pre-set values
   const resourcesBar = document.getElementById('resources-bar');
   resourcesBar.style.visibility = "visible";
+  //Show level with cards face-down
   level.style.visibility = "visible";
-  const levelOne = new Level();
-  levelOne.render();
+  let newEvent = new EventCard();
+  newEvent.renderCards();
+  
+  
+
+  // let card1 = EventCard.createCard()
+  // let card2 = new EventCard();
+
+  // let card3 = new EventCard();
+  // let card4 = new EventCard();
+
+  // let card5 = new EventCard();
+
+
+  
 }
 

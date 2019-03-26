@@ -1,13 +1,31 @@
 class EventCard {
   constructor() {
-    // this.level = level;
-    // this.title = title;
-    // this.prompt = prompt;
-    // this.confirmation = confirmation;
-    // this.denial = denial;
   }
 
-  render() {
+  renderCards() {
+    fetch("http://localhost:3000/api/v1/event_cards")
+    .then(results => {
+      return results.json();
+    })
+    .then(json => {
+      console.log('json', json)
+      json.forEach((card) => {
+        let newCard = new EventCard();
+        let createdCard = newCard.createCard(card);
+
+        //append new div to row
+        let row1 = document.getElementById('row-1')
+        let row2 = document.getElementById('row-2')
+        let row3 = document.getElementById('row-3')
+
+        row1.appendChild(createdCard);
+
+
+      })
+    })
+  }
+
+  createCard(card) {
     //create card DOM elements
     const cardContainer = document.createElement('div');
     cardContainer.classList.add("col-xs-12");
@@ -21,13 +39,37 @@ class EventCard {
 
     // *********REPLACE TEXT CONTENT WITH FETCHED DATA******
     const title = document.createElement('h2');
-    title.textContent = "This is a story all about how";
+    title.textContent = card.title;
     const description = document.createElement('p');
-    description.textContent = "My life got flipped, turned upside down";
+    description.textContent = card.description;
     const acceptButton = document.createElement('button');
     acceptButton.textContent = "Yes";
     const denyButton = document.createElement('button');
     denyButton.textContent = "No";
+
+    acceptButton.addEventListener('click', () => {
+      //change current card content to hidden
+      title.remove();
+      description.remove();
+      acceptButton.remove();
+      denyButton.remove();
+      //display card.confirmation 
+      const response = document.createElement('p');
+      response.textContent = card.confirmation_response;
+      cardBody.appendChild(response);
+    })
+
+    denyButton.addEventListener('click', () => {
+      //change current card content to hidden
+      title.remove();
+      description.remove();
+      acceptButton.remove();
+      denyButton.remove();
+      //display card.confirmation 
+      const response = document.createElement('p');
+      response.textContent = card.rejection_response;
+      cardBody.appendChild(response);
+    })
 
     //adds card to level array
     cardContainer.appendChild(eventCard);
@@ -38,5 +80,8 @@ class EventCard {
     cardBody.appendChild(denyButton);
 
     return cardContainer;
+  }
+
+  render() {
   }
 }
