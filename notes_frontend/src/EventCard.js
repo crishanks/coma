@@ -88,12 +88,8 @@ function getRandomInt(min, max) {
 }
 
 function assignCardToRow(card) {
-  let rowMaxCards = 3;
-  while(rowMaxCards > 0) {
-    let randomInt = getRandomInt(1, 3);
-    let assignedRow = `row-${randomInt}`;
-    let randomRow = document.getElementById(assignedRow);
-    randomRow.appendChild(card);
-    rowMaxCards--;
-  }
+  let randomInt = getRandomInt(1, 3);
+  let assignedRow = `row-${randomInt}`;
+  let randomRow = document.getElementById(assignedRow);
+  randomRow.appendChild(card);
 }
