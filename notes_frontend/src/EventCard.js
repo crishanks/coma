@@ -37,7 +37,6 @@ class EventCard {
     cardBody.classList.add("card-body");
     cardBody.classList.add("text-center");
 
-    // *********REPLACE TEXT CONTENT WITH FETCHED DATA******
     const title = document.createElement('h2');
     title.textContent = card.title;
     const description = document.createElement('p');
@@ -46,6 +45,12 @@ class EventCard {
     acceptButton.textContent = "Yes";
     const denyButton = document.createElement('button');
     denyButton.textContent = "No";
+
+    // Event Listeners
+    eventCard.addEventListener('click', () => {
+      console.log('clicked')
+      cardBody.style.visibility = 'visible';
+    })
 
     acceptButton.addEventListener('click', () => {
       //change current card content to hidden
