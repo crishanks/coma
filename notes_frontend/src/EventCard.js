@@ -8,7 +8,6 @@ class EventCard {
       return results.json();
     })
     .then(json => {
-      console.log('json', json)
       json.forEach((card) => {
         let newCard = new EventCard();
         let createdCard = newCard.createCard(card);
@@ -25,6 +24,7 @@ class EventCard {
     cardContainer.classList.add("col-md-4");
     const eventCard = document.createElement('div');
     eventCard.classList.add("card");
+    eventCard.classList.add("h-100");
     const cardBody = document.createElement('div');
     cardBody.classList.add("card-body");
     cardBody.classList.add("text-center");
@@ -42,6 +42,9 @@ class EventCard {
     eventCard.addEventListener('click', () => {
       cardBody.style.visibility = 'visible';
       eventCard.classList.add('border-clicked');
+      //when clicked, create a div (disabled) for each other card
+      //remove those cards from their parents
+      //append other cards to new div (disabled)
     })
 
     acceptButton.addEventListener('click', () => {
