@@ -22,10 +22,14 @@ class EventCard {
     cardContainer.classList.add("col-xs-12");
     cardContainer.classList.add("col-sm-6");
     cardContainer.classList.add("col-md-4");
+
     const eventCard = document.createElement('div');
     eventCard.classList.add("card");
     eventCard.classList.add("h-100");
+    eventCard.classList.add("unviewed");
+
     const cardBody = document.createElement('div');
+    
     cardBody.classList.add("card-body");
     cardBody.classList.add("text-center");
 
@@ -39,15 +43,9 @@ class EventCard {
     denyButton.textContent = "No";
 
     // Event Listeners
-    eventCard.addEventListener('click', () => {
-      cardBody.style.visibility = 'visible';
-      eventCard.classList.add('border-clicked');
-      //when clicked, create a div (disabled) for each other card
-      //remove those cards from their parents
-      //append other cards to new div (disabled)
-    })
+    eventCard.addEventListener('click', () => {handleClick(cardBody, eventCard)});
 
-    acceptButton.addEventListener('click', () => {
+    acceptButton.addEventListener('click', (ev) => {
       //change current card content to hidden
       title.remove();
       description.remove();
@@ -95,4 +93,15 @@ function assignCardToRow(card) {
   let assignedRow = `row-${randomInt}`;
   let randomRow = document.getElementById(assignedRow);
   randomRow.appendChild(card);
+}
+
+function handleClick(cardBody, eventCard) {
+  if (document.getElementsByClassName('viewing').length > 0) {
+    return;
+  }
+
+  cardBody.style.visibility = 'visible';
+  eventCard.classList.add('border-clicked');
+  eventCard.classList.remove('unviewed');
+  eventCard.classList.add('viewing');
 }

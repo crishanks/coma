@@ -56,3 +56,9 @@ body {
 .row {
   margin: 20px;
 }
+
+.clicked {
+  visibility: hidden;
+  height: 100%;
+  position: absolute;
+}
