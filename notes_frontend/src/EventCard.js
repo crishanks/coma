@@ -43,7 +43,7 @@ class EventCard {
     denyButton.textContent = "No";
 
     // Event Listeners
-    eventCard.addEventListener('click', () => {handleClick(cardBody, eventCard)});
+    eventCard.addEventListener('click', () => {cardFocus(cardBody, eventCard)});
 
     acceptButton.addEventListener('click', (ev) => {
       //change current card content to hidden
@@ -55,6 +55,9 @@ class EventCard {
       const response = document.createElement('p');
       response.textContent = card.confirmation_response;
       cardBody.appendChild(response);
+      eventCard.classList.remove('viewing');
+      eventCard.classList.add('viewed');
+      ev.stopPropagation();
     })
 
     denyButton.addEventListener('click', () => {
@@ -95,13 +98,19 @@ function assignCardToRow(card) {
   randomRow.appendChild(card);
 }
 
-function handleClick(cardBody, eventCard) {
-  if (document.getElementsByClassName('viewing').length > 0) {
+function cardFocus(cardBody, eventCard, ev) {
+  let numViewing = document.getElementsByClassName('viewing').length;
+  
+  
+  if (numViewing > 0) {
     return;
-  }
+  } 
+    cardBody.style.visibility = 'visible';
+    eventCard.classList.add('border-clicked');
+  
+    eventCard.classList.remove('unviewed');
+    eventCard.classList.add('viewing');
+  // if eventCard has the class "viewed", prevent eventListener
 
-  cardBody.style.visibility = 'visible';
-  eventCard.classList.add('border-clicked');
-  eventCard.classList.remove('unviewed');
-  eventCard.classList.add('viewing');
+ 
 }
