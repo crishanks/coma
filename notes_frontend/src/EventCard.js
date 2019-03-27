@@ -60,7 +60,7 @@ class EventCard {
       ev.stopPropagation();
     })
 
-    denyButton.addEventListener('click', () => {
+    denyButton.addEventListener('click', (ev) => {
       //change current card content to hidden
       title.remove();
       description.remove();
@@ -70,6 +70,9 @@ class EventCard {
       const response = document.createElement('p');
       response.textContent = card.rejection_response;
       cardBody.appendChild(response);
+      eventCard.classList.remove('viewing');
+      eventCard.classList.add('viewed');
+      ev.stopPropagation();
     })
 
     //adds card to level array
@@ -100,8 +103,6 @@ function assignCardToRow(card) {
 
 function cardFocus(cardBody, eventCard, ev) {
   let numViewing = document.getElementsByClassName('viewing').length;
-  
-  
   if (numViewing > 0) {
     return;
   } 
