@@ -46,18 +46,23 @@ class EventCard {
     eventCard.addEventListener('click', () => {cardFocus(cardBody, eventCard)});
 
     acceptButton.addEventListener('click', (ev) => {
+      console.log(card.confirmation_response);
       //change current card content to hidden
       title.remove();
       description.remove();
       acceptButton.remove();
       denyButton.remove();
-      //display card.confirmation 
+
+      //display card confirmation
       const response = document.createElement('p');
       response.textContent = card.confirmation_response;
       cardBody.appendChild(response);
       eventCard.classList.remove('viewing');
       eventCard.classList.add('viewed');
       ev.stopPropagation();
+
+      //Update Resources
+      updateResources(card.confirmation_response);
     })
 
     denyButton.addEventListener('click', (ev) => {
@@ -66,13 +71,17 @@ class EventCard {
       description.remove();
       acceptButton.remove();
       denyButton.remove();
-      //display card.confirmation 
+
+      //display card confirmation 
       const response = document.createElement('p');
       response.textContent = card.rejection_response;
       cardBody.appendChild(response);
       eventCard.classList.remove('viewing');
       eventCard.classList.add('viewed');
       ev.stopPropagation();
+
+      //Update Resources
+      updateResources(card.rejection_response);
     })
 
     //adds card to level array
@@ -90,6 +99,7 @@ class EventCard {
   }
 }
 
+//Helper Functions
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
@@ -112,6 +122,45 @@ function cardFocus(cardBody, eventCard, ev) {
     eventCard.classList.remove('unviewed');
     eventCard.classList.add('viewing');
   // if eventCard has the class "viewed", prevent eventListener
+}
 
- 
+
+function parseValue(response) {
+  const responseArray = response.split(' ');
+  const numString = responseArray.filter(word => parseInt(word));
+  const num = parseInt(numString);
+  return num;
+}
+
+function parseResourceWord(response) {
+  const num = parseValue(response);
+  const responseArray = response.split(' ');
+  for (let i = 0; i < responseArray.length; i++) {
+    const currentWord = responseArray[i];
+    if (currentWord == num) {
+      let resourceWord = responseArray.slice(i + 1, i + 2);
+      return resourceWord[0];
+    }
+  }
+}
+
+function updateResources(response) {
+  const value = parseValue(response);
+  const resourceValue = parseResourceWord(response);
+  console.log('value', value);
+  console.log('resourcevalue:', resourceValue)
+  if (resourceValue === 'Gold.') {
+    updateElement('resource-currency-value', value);
+  } else if (resourceValue === 'Food.') {
+    updateElement('resource-food-value', value);
+  } else if (resourceValue === 'Health.') {
+    updateElement('resource-health-value', value);
+  }
+}
+
+function updateElement(id, value) {
+  let el = document.getElementById(id);
+  let elValue = parseInt(el.textContent);
+  elValue += value;
+  el.textContent = elValue;
 }
