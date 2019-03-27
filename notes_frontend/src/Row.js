@@ -1,6 +1,7 @@
 class Row {
   constructor() {
     this.cards = Math.floor(Math.random() * (3 - 1 + 1) + 1);
+    // this.cards doesn't work
   }
 
   createRow() {
@@ -15,6 +16,10 @@ class Row {
       createRow();
       this.cards--;
     }
-    return row;
+    return row; // what is row?
   }
 }
+
+// When a new row is instantiated 
+// Rows should keep track of how many cards it has been assigned. (Maximum 3 cards)
+// Then it should 
