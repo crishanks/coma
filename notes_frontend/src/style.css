@@ -51,6 +51,11 @@ body {
   visibility: hidden;
 }
 
+.viewing {
+  visibility: visible;
+}
+
+
 .border-clicked {
   border: 5px solid gold;
 }

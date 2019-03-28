@@ -9,9 +9,18 @@ function renderCards(currentLevel) {
     levelCards.forEach((card) => {
       let createdCard = createCard(card);
       assignCardToRow(createdCard);
+      levelArray.push(card)
     })
   })
 }
+
+let levelArray = []
+
+//click on the deny button for the escape card.
+//it removes the response
+//create card content from the level array
+//create new card from element of the whatever array
+
 
 function createCard(card) {
   //create card DOM elements
@@ -73,33 +82,37 @@ function createCard(card) {
   })
 
   denyButton.addEventListener('click', (ev) => {
-    //change current card content to hidden
-    title.remove();
-    description.remove();
-    acceptButton.remove();
-    denyButton.remove();
-
-    //display card confirmation 
-    const response = document.createElement('p');
-    response.textContent = card.rejection_response;
-    cardBody.appendChild(response);
     if (card.escape) {
+      eventCard.classList.add('escape-card');
       eventCard.classList.remove('viewing');
       eventCard.classList.add('unviewed');
-    } 
+      cardBody.style.visibility = 'hidden';
+      ev.stopPropagation();
+    } else {
+      //change current card content to hidden
+      title.remove();
+      description.remove();
+      acceptButton.remove();
+      denyButton.remove();
 
-    eventCard.classList.remove('viewing');
-    eventCard.classList.add('viewed');
-    ev.stopPropagation();
+      //display card confirmation 
+      const response = document.createElement('p');
+      response.textContent = card.rejection_response;
+      cardBody.appendChild(response);
 
-    //Update Resources
-    let userChoice = false;
-    updateResources(card, userChoice);
-    const foodResourceEl = document.getElementById('resource-food-value');
-    foodResourceEl.textContent--;
+      eventCard.classList.remove('viewing');
+      eventCard.classList.add('viewed');
+      ev.stopPropagation();
 
-    //Check Health Status
-    checkHealth();
+      //Update Resources
+      let userChoice = false;
+      updateResources(card, userChoice);
+      const foodResourceEl = document.getElementById('resource-food-value');
+      foodResourceEl.textContent--;
+
+      //Check Health Status
+      checkHealth();
+    }
   })
 
   //adds card to level array
@@ -126,11 +139,10 @@ function assignCardToRow(card) {
 }
 
 function cardFocus(cardBody, eventCard) {
-
   let numViewing = document.getElementsByClassName('viewing').length;
   if (numViewing > 0) {
     return;
-  } 
+  }
   
   cardBody.style.visibility = 'visible';
   eventCard.classList.add('border-clicked');
