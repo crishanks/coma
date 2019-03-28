@@ -7,10 +7,8 @@ function renderCards(currentLevel) {
     let levelObject = json[currentLevel];
     let levelCards = Array.from(levelObject["event_cards"]);
     levelCards.forEach((card) => {
-      debugger
       let createdCard = createCard(card);
       assignCardToRow(createdCard);
-      currentLevel++;
     })
   })
 }
@@ -68,8 +66,10 @@ function createCard(card) {
     //Check Health Status
     checkHealth();
 
-    //Render New Level
-    // if (card.)
+    //Render New Level    
+    if (card.escape) {
+      renderNewLevel();
+    }
   })
 
   denyButton.addEventListener('click', (ev) => {
@@ -171,4 +171,30 @@ function changeResourceElement(card, resourceName, resource) {
   let elValue = parseInt(el.textContent);
   elValue += resource;
   el.textContent = elValue;
+}
+
+function renderNewLevel(card) {
+  //display intro to level stretch
+  currentLevel++;
+  console.log('level after escape card', currentLevel)
+  destroyRows();
+  createRows();
+  renderCards(currentLevel);
+}
+
+function destroyRows() {
+  for (let i = 1; i <= 3; i++) {
+    let row = document.getElementById(`row-${i}`)
+    row.remove();
+  }
+}
+
+function createRows() {
+  for (let i = 1; i <= 3; i++) {
+    let row = new Row(); //This is an object
+    let createdRow = row.createRow(); //This is a div
+    createdRow.setAttribute('id', `row-${i}`);
+    const container = document.getElementById('rows');
+    container.appendChild(createdRow);
+  }
 }

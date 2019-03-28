@@ -12,14 +12,7 @@ function startGame() {
   resourcesBar.style.visibility = "visible";
 
   //Create Rows
-  for (let i = 1; i <= 3; i++) {
-    let row = new Row(); //This is an object
-    let createdRow = row.createRow(); //This is a div
-    createdRow.setAttribute('id', `row-${i}`);
-    const container = document.getElementById('rows');
-
-    container.appendChild(createdRow);
-  }
+  createRows();
 
   //Show level with cards face-down
   level.style.visibility = "visible";
@@ -31,22 +24,19 @@ function gameOver(){
 
   if (healthNum > 0) {
     //Win Condition
-    clearBoard();
+    destroyRows();
     heroUnit.style.visibility = 'visible';
   } else {
     //Lose Condition
-    clearBoard();
+    destroyRows();
     heroUnit.style.visibility = 'visible';
   }
 }
 
-function clearBoard() {
-  const level = document.getElementById('level');
-  level.remove();
-}
-
-
-
+// function clearBoard() {
+//   const level = document.getElementById('level');
+//   level.remove();
+// }
 
   // if health is 0 turn this true.
   // if end card found turn this true.

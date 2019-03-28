@@ -1,8 +1,7 @@
 class Row {
-  constructor() {
-    this.cards = Math.floor(Math.random() * (3 - 1 + 1) + 1);
-    // this.cards doesn't work
-  }
+  // constructor() {
+  //   this.cards = Math.floor(Math.random() * (3 - 1 + 1) + 1);
+  // }
 
   createRow() {
     let row = document.createElement("div");
@@ -10,14 +9,14 @@ class Row {
     return row;
   }
 
-  render() {
-    while (this.cards > 0) {
-      //append card to row
-      createRow();
-      this.cards--;
-    }
-    return row; // what is row?
-  }
+  // render() {
+  //   while (this.cards > 0) {
+  //     //append card to row
+  //     createRow();
+  //     this.cards--;
+  //   }
+  //   return row; // what is row?
+  // }
 }
 
 // When a new row is instantiated 
