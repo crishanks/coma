@@ -7,6 +7,8 @@ function renderCards(currentLevel) {
     let levelObject = json[currentLevel];
     nextLevelObject = json[currentLevel + 1];
     document.getElementById('level-title').textContent = levelObject.title;
+    console.log('currentLevel', currentLevel);
+    console.log('levelObject', levelObject);
     let levelCards = Array.from(levelObject["event_cards"]);
     levelCards.forEach((card) => {
       let createdCard = createCard(card);

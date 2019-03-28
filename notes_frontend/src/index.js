@@ -11,6 +11,14 @@ function startGame() {
   const resourcesBar = document.getElementById('resources-bar');
   resourcesBar.style.visibility = "visible";
 
+  //set values
+  const health = document.getElementById('resource-health-value').textContent = 10;
+  const food = document.getElementById('resource-food-value').textContent = 3;
+  const currency = document.getElementById('resource-currency-value').textContent = 10;
+
+  //set current level
+  currentLevel = 0;
+
   //Create Rows
   createRows();
 
@@ -20,7 +28,6 @@ function startGame() {
 }
 
 function lose(){
-  destroyRows();
   let title = "You Lose";
   let message = "How Unfortunate. Would you like to play again?"
   createHeroDiv('lose', title, message);
@@ -52,11 +59,14 @@ function createHeroDiv(str, title, message) {
   button.textContent = 'Continue';
 
   button.addEventListener('click', () => {
+    const levelTitle = document.getElementById('level-title').textContent;
+    
     if (str === 'win' || str === 'lose') {
-       currentLevel -= 3;
-      debugger
-    } 
-    renderNewLevel(`${str}-hero-div`);
+      document.getElementById(`${str}-hero-div`).remove();
+      startGame();
+    } else {
+      renderNewLevel(`${str}-hero-div`);
+    }
   });
 
   body.appendChild(heroDiv);
