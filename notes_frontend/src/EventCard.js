@@ -7,6 +7,7 @@ function renderCards(currentLevel) {
     let levelObject = json[currentLevel];
     let levelCards = Array.from(levelObject["event_cards"]);
     levelCards.forEach((card) => {
+      debugger
       let createdCard = createCard(card);
       assignCardToRow(createdCard);
       currentLevel++;
@@ -61,9 +62,14 @@ function createCard(card) {
     //Update Resources
     let userChoice = true;
     updateResources(card, userChoice);
+    const foodResourceEl = document.getElementById('resource-food-value');
+    foodResourceEl.textContent--;
 
     //Check Health Status
     checkHealth();
+
+    //Render New Level
+    // if (card.)
   })
 
   denyButton.addEventListener('click', (ev) => {
@@ -77,6 +83,11 @@ function createCard(card) {
     const response = document.createElement('p');
     response.textContent = card.rejection_response;
     cardBody.appendChild(response);
+    if (card.escape) {
+      eventCard.classList.remove('viewing');
+      eventCard.classList.add('unviewed');
+    } 
+
     eventCard.classList.remove('viewing');
     eventCard.classList.add('viewed');
     ev.stopPropagation();
@@ -84,6 +95,8 @@ function createCard(card) {
     //Update Resources
     let userChoice = false;
     updateResources(card, userChoice);
+    const foodResourceEl = document.getElementById('resource-food-value');
+    foodResourceEl.textContent--;
 
     //Check Health Status
     checkHealth();
@@ -112,17 +125,17 @@ function assignCardToRow(card) {
   randomRow.appendChild(card);
 }
 
-function cardFocus(cardBody, eventCard, ev) {
+function cardFocus(cardBody, eventCard) {
+
   let numViewing = document.getElementsByClassName('viewing').length;
   if (numViewing > 0) {
     return;
   } 
-    cardBody.style.visibility = 'visible';
-    eventCard.classList.add('border-clicked');
   
-    eventCard.classList.remove('unviewed');
-    eventCard.classList.add('viewing');
-  // if eventCard has the class "viewed", prevent eventListener
+  cardBody.style.visibility = 'visible';
+  eventCard.classList.add('border-clicked');
+  eventCard.classList.remove('unviewed');
+  eventCard.classList.add('viewing');
 }
 
 function checkHealth() {

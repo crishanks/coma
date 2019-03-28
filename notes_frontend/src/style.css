@@ -20,7 +20,9 @@ body {
 #resources-bar {
   background-color: #A0AFB8;
   visibility: hidden;
+  margin-top: 55px;
 }
+
 
 /* Rules Styles */
 
