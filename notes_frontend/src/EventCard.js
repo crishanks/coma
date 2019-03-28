@@ -5,9 +5,12 @@ function renderCards(currentLevel) {
   })
   .then(json => {
     let levelObject = json[currentLevel];
+    nextLevelObject = json[currentLevel + 1];
+    document.getElementById('level-title').textContent = levelObject.title;
     let levelCards = Array.from(levelObject["event_cards"]);
     levelCards.forEach((card) => {
       let createdCard = createCard(card);
+     
       assignCardToRow(createdCard);
       levelArray.push(card)
     })
@@ -15,6 +18,7 @@ function renderCards(currentLevel) {
 }
 
 let levelArray = []
+let nextLevelObject;
 
 //click on the deny button for the escape card.
 //it removes the response
@@ -77,7 +81,9 @@ function createCard(card) {
 
     //Render New Level    
     if (card.escape) {
-      renderNewLevel();
+      let title = nextLevelObject.title;
+      let message = "Enter Into a New World"
+      createHeroDiv(title, title, message);
     }
   })
 
@@ -164,34 +170,33 @@ function updateResources(card, userChoice) {
     const health = card.accept_id.health;
     const food = card.accept_id.food;
     const gold = card.accept_id.gold;
-    changeResourceElement(card, 'health', health);
-    changeResourceElement(card, 'food', food);
-    changeResourceElement(card, 'currency', gold);
+    changeResourceElement('health', health);
+    changeResourceElement('food', food);
+    changeResourceElement('currency', gold);
 
   } else {
     const health = card.reject_id.health;
     const food = card.reject_id.food;
     const gold = card.reject_id.gold;
-    changeResourceElement(card, 'health', health);
-    changeResourceElement(card, 'food', food);
-    changeResourceElement(card, 'currency', gold);
+    changeResourceElement('health', health);
+    changeResourceElement('food', food);
+    changeResourceElement('currency', gold);
   }
 }
 
-function changeResourceElement(card, resourceName, resource) {
+function changeResourceElement(resourceName, resource) {
   const el = document.getElementById(`resource-${resourceName}-value`);
   let elValue = parseInt(el.textContent);
   elValue += resource;
   el.textContent = elValue;
 }
 
-function renderNewLevel(card) {
+function renderNewLevel(heroDivId) {
   //display intro to level stretch
   currentLevel++;
-  console.log('level after escape card', currentLevel)
-  destroyRows();
   createRows();
   renderCards(currentLevel);
+  document.getElementById(heroDivId).remove();
 }
 
 function destroyRows() {
