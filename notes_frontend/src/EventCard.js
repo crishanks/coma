@@ -53,7 +53,7 @@ function createCard(card) {
   denyButton.textContent = "No";
 
   // Event Listeners
-  eventCard.addEventListener('click', () => {cardFocus(cardBody, eventCard)});
+  eventCard.addEventListener('click', () => {cardFocus(card, cardBody, eventCard)});
 
   acceptButton.addEventListener('click', (ev) => {
     //change current card content to hidden
@@ -78,6 +78,7 @@ function createCard(card) {
 
     //Check Health Status
     checkHealth();
+
 
     //Render New Level    
     if (card.escape) {
@@ -144,10 +145,14 @@ function assignCardToRow(card) {
   randomRow.appendChild(card);
 }
 
-function cardFocus(cardBody, eventCard) {
+function cardFocus(card, cardBody, eventCard) {
   let numViewing = document.getElementsByClassName('viewing').length;
   if (numViewing > 0) {
     return;
+  }
+
+  if(card.final){
+    win()
   }
   
   cardBody.style.visibility = 'visible';
@@ -160,7 +165,7 @@ function checkHealth() {
   const health = document.getElementById('resource-health-value').textContent;
   let healthNum = parseInt(health);
   if (healthNum <= 0) {
-    gameOver();
+    lose();
   }
 }
 
@@ -199,19 +204,3 @@ function renderNewLevel(heroDivId) {
   document.getElementById(heroDivId).remove();
 }
 
-function destroyRows() {
-  for (let i = 1; i <= 3; i++) {
-    let row = document.getElementById(`row-${i}`)
-    row.remove();
-  }
-}
-
-function createRows() {
-  for (let i = 1; i <= 3; i++) {
-    let row = new Row(); //This is an object
-    let createdRow = row.createRow(); //This is a div
-    createdRow.setAttribute('id', `row-${i}`);
-    const container = document.getElementById('rows');
-    container.appendChild(createdRow);
-  }
-}

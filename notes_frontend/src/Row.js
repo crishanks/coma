@@ -1,24 +1,21 @@
-class Row {
-  // constructor() {
-  //   this.cards = Math.floor(Math.random() * (3 - 1 + 1) + 1);
-  // }
-
-  createRow() {
-    let row = document.createElement("div");
-    row.classList.add('row');
-    return row;
-  }
-
-  // render() {
-  //   while (this.cards > 0) {
-  //     //append card to row
-  //     createRow();
-  //     this.cards--;
-  //   }
-  //   return row; // what is row?
-  // }
+function createRow() {
+  let row = document.createElement("div");
+  row.classList.add('row');
+  return row;
 }
 
-// When a new row is instantiated 
-// Rows should keep track of how many cards it has been assigned. (Maximum 3 cards)
-// Then it should 
+function createRows() {
+  for (let i = 1; i <= 3; i++) {
+    const createdRow = createRow();
+    createdRow.setAttribute('id', `row-${i}`);
+    const container = document.getElementById('rows');
+    container.appendChild(createdRow);
+  }
+}
+
+function destroyRows() {
+  for (let i = 1; i <= 3; i++) {
+    let row = document.getElementById(`row-${i}`)
+    row.remove();
+  }
+}

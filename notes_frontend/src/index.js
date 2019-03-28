@@ -19,23 +19,17 @@ function startGame() {
   renderCards(currentLevel);
 }
 
-function gameOver(){
-  const heroUnit = document.getElementById('hero-unit');
-  const healthNum = parseInt(document.getElementById('resource-health-value').textContent);
+function lose(){
+  destroyRows();
+  let title = "You Lose";
+  let message = "How Unfortunate. Would you like to play again?"
+  createHeroDiv('lose', title, message);
+}
 
-  if (healthNum > 0) {
-    //Win Condition
-    destroyRows();
-    let title = "You Win";
-    let message = "Congratulations. Would you like to play again?"
-    createHeroDiv('win', title, message);
-  } else {
-    //Lose Condition
-    destroyRows();
-    let title = "You Lose";
-    let message = "How Unfortunate. Would you like to play again?"
-    createHeroDiv('lose', title, message);
-  }
+function win() {
+  let title = "You Win";
+  let message = "Congratulations. Would you like to play again?"
+  createHeroDiv('win', title, message);
 }
 
 function createHeroDiv(str, title, message) {
@@ -59,7 +53,8 @@ function createHeroDiv(str, title, message) {
 
   button.addEventListener('click', () => {
     if (str === 'win' || str === 'lose') {
-      currentLevel = 0;
+       currentLevel -= 3;
+      debugger
     } 
     renderNewLevel(`${str}-hero-div`);
   });
@@ -69,13 +64,3 @@ function createHeroDiv(str, title, message) {
   heroDiv.appendChild(p);
   heroDiv.appendChild(button);
 }
-
-// function clearBoard() {
-//   const level = document.getElementById('level');
-//   level.remove();
-// }
-
-  // if health is 0 turn this true.
-  // if end card found turn this true.
-  // if health is above 0 and gameOver is true show win screen
-  // if gameOver is true and health is 0 or less show lose screen, return to start menu.
