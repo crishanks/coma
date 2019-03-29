@@ -1,24 +1,24 @@
 /* Global Styles */
 body {
   padding-top: 56px;
-  background-color: #6B6B6B;
+  background-color: #6b6b6b;
 }
 
 /* Resources Styles */
 #resource-currency-text {
-  color: #E8D73B;
+  color: #e8d73b;
 }
 
 #resource-food-text {
-  color: #7DFF0D;
+  color: #7dff0d;
 }
 
 #resource-health-text {
-  color: #FF0000;
+  color: #ff0000;
 }
 
 #resources-bar {
-  background-color: #A0AFB8;
+  background-color: #a0afb8;
   visibility: hidden;
   margin-top: 55px;
 }
@@ -31,7 +31,8 @@ body {
   padding: 10%;
 }
 
-.hero-unit, p {
+.hero-unit,
+p {
   text-align: center;
 }
 
@@ -39,7 +40,7 @@ body {
 
 #level {
   margin-top: 40px;
-  background-color: #6B7AB8;
+  background-color: #6b7ab8;
   padding: 10%;
   visibility: hidden;
 }
@@ -54,6 +55,9 @@ body {
   visibility: visible;
 }
 
+.viewed {
+  pointer-events: none;
+}
 
 .border-clicked {
   border: 5px solid gold;

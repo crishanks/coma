@@ -40,9 +40,9 @@ function createCard(card) {
   eventCard.classList.add("unviewed");
 
   const cardBody = document.createElement("div");
-
   cardBody.classList.add("card-body");
   cardBody.classList.add("text-center");
+  cardBody.id = card.id;
 
   const title = document.createElement("h2");
   title.textContent = card.title;
@@ -182,16 +182,22 @@ function move() {
   }
 }
 
-function updateResources(card, userChoice) {
+function updateResources(card, userChoice, ev) {
   if (userChoice) {
     //Resources
     const health = card.accept_id.health;
     const food = card.accept_id.food;
     const gold = card.accept_id.gold;
 
-    changeResourceElement("health", health);
-    changeResourceElement("food", food);
-    changeResourceElement("currency", gold);
+    if (gold >= 0) {
+      changeResourceElement("health", health);
+      changeResourceElement("food", food);
+      changeResourceElement("currency", gold);
+    } else {
+      const currentCard = document.getElementById(card.id);
+      currentCard.classList.add("viewed");
+      currentCard.textContent = "You Don't Have Enough Gold!";
+    }
   } else {
     const health = card.reject_id.health;
     const food = card.reject_id.food;
