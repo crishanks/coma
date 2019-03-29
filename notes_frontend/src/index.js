@@ -18,7 +18,7 @@ function startGame() {
   const food = (document.getElementById("resource-food-value").textContent = 3);
   const currency = (document.getElementById(
     "resource-currency-value"
-  ).textContent = 1);
+  ).textContent = 10);
 
   //set current level
   currentLevel = 0;
@@ -32,9 +32,13 @@ function startGame() {
 }
 
 function lose() {
+  const level = document.getElementById("level");
+  level.classList.add("fadeOut");
   let title = "You Lose";
   let message = "How Unfortunate. Would you like to play again?";
-  createHeroDiv("lose", title, message);
+  setTimeout(() => {
+    createHeroDiv("lose", title, message);
+  }, 3000);
 }
 
 function win() {
@@ -47,9 +51,13 @@ function createHeroDiv(str, title, message) {
   destroyRows();
   const body = document.body;
   const heroDiv = document.createElement("div");
-  heroDiv.classList.add("hero-unit");
-  heroDiv.classList.add("shadow");
-  heroDiv.classList.add("fixed-top");
+  heroDiv.classList.add(
+    "hero-unit",
+    "shadow",
+    "fixed-top",
+    "gradient",
+    "fadeIn"
+  );
   heroDiv.id = `${str}-hero-div`;
   const h2 = document.createElement("h2");
   h2.id = `${str}-hero-title`;
@@ -66,6 +74,8 @@ function createHeroDiv(str, title, message) {
 
     if (str === "win" || str === "lose") {
       document.getElementById(`${str}-hero-div`).remove();
+      const levelDiv = document.getElementById("level");
+      levelDiv.classList.remove("fadeOut");
       startGame();
     } else {
       renderNewLevel(`${str}-hero-div`);

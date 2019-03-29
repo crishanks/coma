@@ -30,9 +30,14 @@ let nextLevelObject;
 function createCard(card) {
   //create card DOM elements
   const cardContainer = document.createElement("div");
-  cardContainer.classList.add("col-xs-12");
-  cardContainer.classList.add("col-sm-6");
-  cardContainer.classList.add("col-md-4");
+  cardContainer.classList.add(
+    "col-xs-12",
+    "col-sm-6",
+    "col-md-4",
+    "card-container",
+    "col-auto",
+    "mb-3"
+  );
 
   const eventCard = document.createElement("div");
   eventCard.classList.add("card");
