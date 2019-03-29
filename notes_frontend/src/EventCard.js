@@ -1,25 +1,25 @@
 function renderCards(currentLevel) {
   fetch("http://localhost:3000/api/v1/levels")
-  .then(results => {
-    return results.json();
-  })
-  .then(json => {
-    let levelObject = json[currentLevel];
-    nextLevelObject = json[currentLevel + 1];
-    document.getElementById('level-title').textContent = levelObject.title;
-    console.log('currentLevel', currentLevel);
-    console.log('levelObject', levelObject);
-    let levelCards = Array.from(levelObject["event_cards"]);
-    levelCards.forEach((card) => {
-      let createdCard = createCard(card);
-     
-      assignCardToRow(createdCard);
-      levelArray.push(card)
+    .then(results => {
+      return results.json();
     })
-  })
+    .then(json => {
+      let levelObject = json[currentLevel];
+      nextLevelObject = json[currentLevel + 1];
+      document.getElementById("level-title").textContent = levelObject.title;
+      console.log("currentLevel", currentLevel);
+      console.log("levelObject", levelObject);
+      let levelCards = Array.from(levelObject["event_cards"]);
+      levelCards.forEach(card => {
+        let createdCard = createCard(card);
+
+        assignCardToRow(createdCard);
+        levelArray.push(card);
+      });
+    });
 }
 
-let levelArray = []
+let levelArray = [];
 let nextLevelObject;
 
 //click on the deny button for the escape card.
@@ -27,37 +27,38 @@ let nextLevelObject;
 //create card content from the level array
 //create new card from element of the whatever array
 
-
 function createCard(card) {
   //create card DOM elements
-  const cardContainer = document.createElement('div');
+  const cardContainer = document.createElement("div");
   cardContainer.classList.add("col-xs-12");
   cardContainer.classList.add("col-sm-6");
   cardContainer.classList.add("col-md-4");
 
-  const eventCard = document.createElement('div');
+  const eventCard = document.createElement("div");
   eventCard.classList.add("card");
   eventCard.classList.add("h-100");
   eventCard.classList.add("unviewed");
 
-  const cardBody = document.createElement('div');
-  
+  const cardBody = document.createElement("div");
+
   cardBody.classList.add("card-body");
   cardBody.classList.add("text-center");
 
-  const title = document.createElement('h2');
+  const title = document.createElement("h2");
   title.textContent = card.title;
-  const description = document.createElement('p');
+  const description = document.createElement("p");
   description.textContent = card.description;
-  const acceptButton = document.createElement('button');
+  const acceptButton = document.createElement("button");
   acceptButton.textContent = "Yes";
-  const denyButton = document.createElement('button');
+  const denyButton = document.createElement("button");
   denyButton.textContent = "No";
 
   // Event Listeners
-  eventCard.addEventListener('click', () => {cardFocus(card, cardBody, eventCard)});
+  eventCard.addEventListener("click", () => {
+    cardFocus(card, cardBody, eventCard);
+  });
 
-  acceptButton.addEventListener('click', (ev) => {
+  acceptButton.addEventListener("click", ev => {
     //change current card content to hidden
     title.remove();
     description.remove();
@@ -65,11 +66,11 @@ function createCard(card) {
     denyButton.remove();
 
     //display card confirmation
-    const response = document.createElement('p');
+    const response = document.createElement("p");
     response.textContent = card.confirmation_response;
     cardBody.appendChild(response);
-    eventCard.classList.remove('viewing');
-    eventCard.classList.add('viewed');
+    eventCard.classList.remove("viewing");
+    eventCard.classList.add("viewed");
     ev.stopPropagation();
 
     //Update Resources
@@ -79,20 +80,20 @@ function createCard(card) {
     //Check Health Status
     checkHealth();
 
-    //Render New Level    
+    //Render New Level
     if (card.escape) {
       let title = nextLevelObject.title;
-      let message = "Enter Into a New World"
+      let message = "Enter Into a New World";
       createHeroDiv(title, title, message);
     }
-  })
+  });
 
-  denyButton.addEventListener('click', (ev) => {
+  denyButton.addEventListener("click", ev => {
     if (card.escape) {
-      eventCard.classList.add('escape-card');
-      eventCard.classList.remove('viewing');
-      eventCard.classList.add('unviewed');
-      cardBody.style.visibility = 'hidden';
+      eventCard.classList.add("escape-card");
+      eventCard.classList.remove("viewing");
+      eventCard.classList.add("unviewed");
+      cardBody.style.visibility = "hidden";
       ev.stopPropagation();
     } else {
       //change current card content to hidden
@@ -101,13 +102,13 @@ function createCard(card) {
       acceptButton.remove();
       denyButton.remove();
 
-      //display card confirmation 
-      const response = document.createElement('p');
+      //display card confirmation
+      const response = document.createElement("p");
       response.textContent = card.rejection_response;
       cardBody.appendChild(response);
 
-      eventCard.classList.remove('viewing');
-      eventCard.classList.add('viewed');
+      eventCard.classList.remove("viewing");
+      eventCard.classList.add("viewed");
       ev.stopPropagation();
 
       //Update Resources
@@ -117,7 +118,7 @@ function createCard(card) {
       //Check Health Status
       checkHealth();
     }
-  })
+  });
 
   //adds card to level array
   cardContainer.appendChild(eventCard);
@@ -143,24 +144,24 @@ function assignCardToRow(card) {
 }
 
 function cardFocus(card, cardBody, eventCard) {
-  let numViewing = document.getElementsByClassName('viewing').length;
+  let numViewing = document.getElementsByClassName("viewing").length;
   if (numViewing > 0) {
     return;
   }
 
-  if(card.final){
-    win()
+  if (card.final) {
+    win();
   }
-  
-  cardBody.style.visibility = 'visible';
-  eventCard.classList.add('border-clicked');
-  eventCard.classList.remove('unviewed');
-  eventCard.classList.add('viewing');
+
+  cardBody.style.visibility = "visible";
+  eventCard.classList.add("border-clicked");
+  eventCard.classList.remove("unviewed");
+  eventCard.classList.add("viewing");
   move();
 }
 
 function checkHealth() {
-  const health = document.getElementById('resource-health-value').textContent;
+  const health = document.getElementById("resource-health-value").textContent;
   let healthNum = parseInt(health);
   if (healthNum < 1) {
     lose();
@@ -168,12 +169,12 @@ function checkHealth() {
 }
 
 function move() {
-  const foodResourceEl = document.getElementById('resource-food-value');
+  const foodResourceEl = document.getElementById("resource-food-value");
   if (parseInt(foodResourceEl.textContent < 0)) {
     foodResourceEl.textContent = 0;
   }
   if (parseInt(foodResourceEl.textContent) < 1) {
-    const healthResourceEl = document.getElementById('resource-health-value');
+    const healthResourceEl = document.getElementById("resource-health-value");
     healthResourceValue = parseInt(healthResourceEl.textContent);
     healthResourceEl.textContent--;
   } else {
@@ -188,17 +189,16 @@ function updateResources(card, userChoice) {
     const food = card.accept_id.food;
     const gold = card.accept_id.gold;
 
-    changeResourceElement('health', health);
-    changeResourceElement('food', food);
-    changeResourceElement('currency', gold);
-
+    changeResourceElement("health", health);
+    changeResourceElement("food", food);
+    changeResourceElement("currency", gold);
   } else {
     const health = card.reject_id.health;
     const food = card.reject_id.food;
     const gold = card.reject_id.gold;
-    changeResourceElement('health', health);
-    changeResourceElement('food', food);
-    changeResourceElement('currency', gold);
+    changeResourceElement("health", health);
+    changeResourceElement("food", food);
+    changeResourceElement("currency", gold);
   }
 }
 
@@ -208,10 +208,8 @@ function changeResourceElement(resourceName, resource) {
   let sum = elValue + resource;
   if (sum < 1) {
     el.textContent = 0;
-
   } else {
     el.textContent = sum;
-
   }
 }
 
@@ -222,4 +220,3 @@ function renderNewLevel(heroDivId) {
   renderCards(currentLevel);
   document.getElementById(heroDivId).remove();
 }
-
