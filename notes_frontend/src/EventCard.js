@@ -7,8 +7,6 @@ function renderCards(currentLevel) {
       let levelObject = json[currentLevel];
       nextLevelObject = json[currentLevel + 1];
       document.getElementById("level-title").textContent = levelObject.title;
-      console.log("currentLevel", currentLevel);
-      console.log("levelObject", levelObject);
       let levelCards = Array.from(levelObject["event_cards"]);
       levelCards.forEach(card => {
         let createdCard = createCard(card);
@@ -21,11 +19,6 @@ function renderCards(currentLevel) {
 
 let levelArray = [];
 let nextLevelObject;
-
-//click on the deny button for the escape card.
-//it removes the response
-//create card content from the level array
-//create new card from element of the whatever array
 
 function createCard(card) {
   //create card DOM elements

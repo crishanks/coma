@@ -76,10 +76,10 @@ p {
 }
 
 .card-container {
-  min-width: 235px;
-  min-height: 325px;
-  max-width: 235px;
-  max-height: 325px;
+  min-width: 250px;
+  min-height: 350px;
+  max-width: 250px;
+  max-height: 350px;
   margin: 10px;
 }
 
@@ -128,6 +128,7 @@ p {
 span {
   font-size: 18px;
   text-shadow: 1px 1px black;
+  position: relative;
 }
 
 .card-body h2 {
