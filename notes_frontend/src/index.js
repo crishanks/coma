@@ -68,6 +68,7 @@ function createHeroDiv(str, title, message) {
   const button = document.createElement("button");
   button.id = "start-button";
   button.textContent = "Continue";
+  button.classList.add("btn", "btn-secondary", "btn-large");
 
   button.addEventListener("click", () => {
     const levelTitle = document.getElementById("level-title").textContent;

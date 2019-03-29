@@ -55,7 +55,9 @@ function createCard(card) {
   description.textContent = card.description;
   const acceptButton = document.createElement("button");
   acceptButton.textContent = "Yes";
+  acceptButton.classList.add("btn", "btn-secondary", "btn-large");
   const denyButton = document.createElement("button");
+  denyButton.classList.add("btn", "btn-secondary", "btn-large");
   denyButton.textContent = "No";
 
   // Event Listeners
