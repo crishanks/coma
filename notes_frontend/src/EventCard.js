@@ -188,12 +188,17 @@ function updateResources(card, userChoice, ev) {
     const health = card.accept_id.health;
     const food = card.accept_id.food;
     const gold = card.accept_id.gold;
-
-    if (gold >= 0) {
+    const playerGold = parseInt(
+      document.getElementById("resource-currency-value").textContent,
+      10
+    );
+    if (playerGold + gold >= 0) {
+      console.log("gold1", gold);
       changeResourceElement("health", health);
       changeResourceElement("food", food);
       changeResourceElement("currency", gold);
     } else {
+      console.log("gold2", gold);
       const currentCard = document.getElementById(card.id);
       currentCard.classList.add("viewed");
       currentCard.textContent = "You Don't Have Enough Gold!";
