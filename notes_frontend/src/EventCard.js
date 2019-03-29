@@ -1,5 +1,5 @@
 function renderCards(currentLevel) {
-  fetch("https://comagame.herokuapp.com/")
+  fetch("https://comagame.herokuapp.com/api/v1/levels")
     .then(results => {
       return results.json();
     })
