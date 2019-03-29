@@ -75,12 +75,9 @@ function createCard(card) {
     //Update Resources
     let userChoice = true;
     updateResources(card, userChoice);
-    const foodResourceEl = document.getElementById('resource-food-value');
-    foodResourceEl.textContent--;
 
     //Check Health Status
     checkHealth();
-
 
     //Render New Level    
     if (card.escape) {
@@ -116,8 +113,6 @@ function createCard(card) {
       //Update Resources
       let userChoice = false;
       updateResources(card, userChoice);
-      const foodResourceEl = document.getElementById('resource-food-value');
-      foodResourceEl.textContent--;
 
       //Check Health Status
       checkHealth();
@@ -161,13 +156,28 @@ function cardFocus(card, cardBody, eventCard) {
   eventCard.classList.add('border-clicked');
   eventCard.classList.remove('unviewed');
   eventCard.classList.add('viewing');
+  move();
 }
 
 function checkHealth() {
   const health = document.getElementById('resource-health-value').textContent;
   let healthNum = parseInt(health);
-  if (healthNum <= 0) {
+  if (healthNum < 1) {
     lose();
+  }
+}
+
+function move() {
+  const foodResourceEl = document.getElementById('resource-food-value');
+  if (parseInt(foodResourceEl.textContent < 0)) {
+    foodResourceEl.textContent = 0;
+  }
+  if (parseInt(foodResourceEl.textContent) < 1) {
+    const healthResourceEl = document.getElementById('resource-health-value');
+    healthResourceValue = parseInt(healthResourceEl.textContent);
+    healthResourceEl.textContent--;
+  } else {
+    foodResourceEl.textContent--;
   }
 }
 
@@ -177,6 +187,7 @@ function updateResources(card, userChoice) {
     const health = card.accept_id.health;
     const food = card.accept_id.food;
     const gold = card.accept_id.gold;
+
     changeResourceElement('health', health);
     changeResourceElement('food', food);
     changeResourceElement('currency', gold);
@@ -194,8 +205,14 @@ function updateResources(card, userChoice) {
 function changeResourceElement(resourceName, resource) {
   const el = document.getElementById(`resource-${resourceName}-value`);
   let elValue = parseInt(el.textContent);
-  elValue += resource;
-  el.textContent = elValue;
+  let sum = elValue + resource;
+  if (sum < 1) {
+    el.textContent = 0;
+
+  } else {
+    el.textContent = sum;
+
+  }
 }
 
 function renderNewLevel(heroDivId) {
