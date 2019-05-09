@@ -1,1 +1,1 @@
-<?php header( 'Location: /notes_frontend/index.js' ) ;  ?>
+<?php header( 'Location: /notes_frontend/src/index.js' ) ;  ?>
